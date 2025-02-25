@@ -151,7 +151,7 @@ describe('Gilded Rose', () => {
     })
   })
 
-  describe.skip("'Conjured Mana Cake' items", () => {
+  describe("'Conjured Mana Cake' items", () => {
     const conjuredName = "Conjured Mana Cake"
 
     it("should ensure sell in decreases by 1 each time", () => {

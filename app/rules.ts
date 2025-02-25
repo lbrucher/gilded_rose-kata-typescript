@@ -69,6 +69,28 @@ const rules:Rule[] = [
     }
   },
   {
+    name:'Conjured Mana Cake',
+    sellIn:{
+      change: -1
+    },
+    quality:{
+      min:0,
+      max:50,
+      changes:[
+        {
+          sellInMin: 0,
+          sellInMax: undefined,
+          change: -2
+        },
+        {
+          sellInMin: undefined,
+          sellInMax: -1,
+          change: -4
+        }
+      ]
+    }
+  },
+  {
     name: undefined,  // regular items
     sellIn:{
       change: -1
