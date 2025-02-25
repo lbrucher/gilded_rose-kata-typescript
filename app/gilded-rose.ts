@@ -1,6 +1,6 @@
 import { Item } from "./models/item.model";
 import { Rule } from "./models/rule.model";
-import defaultRules from './rules'
+import defaultRules from './default-rules'
 
 export class GildedRose {
   items: Array<Item>;
