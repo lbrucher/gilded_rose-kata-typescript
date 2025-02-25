@@ -13,20 +13,26 @@ export class GildedRose {
   }
 
   ensureValidValues() {
-// TODO
+    // TODO
+    // Since updateQuality() will possibly force some of the items quality to specifc
+    // values we should maybe/arguably ensure the following: before updateQuality()
+    // gets called we should ensure that the quality of each item is valid.
+    // Or not... 'itens' is not public and the only way to get the list of items is by
+    // calling updateQuality(). So who cares
   }
 
   updateQuality() {
     for(const item of this.items) {
-      this.applyRules(item);
+      const rule = this.findRule(item);
+      if (!!rule){
+        this.applyRule(item, rule);
+      }
     }
     return this.items;
   }
 
-  protected applyRules(item) {
-    const rule = this.findRule(item);
-
-    // Apply sell in rule
+  protected applyRule(item:Item, rule:Rule) {
+    // 1. Apply sell in rule
     // We update sellIn first since this update happens after each day
     // So a day has passed and the quality will then be updated according
     // to the new sellIn value.
@@ -40,7 +46,7 @@ export class GildedRose {
       item.sellIn = rule.sellIn.max
     }
 
-    // Apply quality rule
+    // 2. Apply quality rule
     // For each change rule, determine if the current sell in value is between the rule's min/max values
     // If so, apply the change value to the item quality.
     for(const changeRule of rule.quality.changes) {
@@ -61,8 +67,7 @@ export class GildedRose {
     }
   }
 
-  private findRule(item): Rule {
-    const rule = this.rules.find(rule => (rule.name == null || rule.name === item.name));
-    return rule!;
+  protected findRule(item:Item): Rule|undefined {
+    return this.rules.find(rule => (rule.name == null || rule.name === item.name));
   }
 }

@@ -6,7 +6,7 @@ export type Rule = {
   sellIn: {
     min?: number,
     max?: number,
-    change?: number,
+    change: number,
   },
   quality: {
     min: number,

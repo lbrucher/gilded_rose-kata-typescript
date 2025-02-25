@@ -10,6 +10,11 @@ function update(name:string, sellIn:number, quality:number, numDays:number = 1):
   return updatedItems[0];
 }
 
+//
+// Theses tests only test with the default rules.
+// Ideally we should also have coverage for the
+// GildedRose.applyRule() function with test rules...
+//
 
 describe('Gilded Rose', () => {
   it("should update multiple items", () => {
