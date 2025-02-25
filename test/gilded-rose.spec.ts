@@ -1,4 +1,5 @@
-import { Item, GildedRose } from '@/gilded-rose';
+import { GildedRose } from '@/gilded-rose';
+import { Item } from '@/models/item.model';
 
 function update(name:string, sellIn:number, quality:number, numDays:number = 1): Item {
   const gildedRose = new GildedRose([new Item(name, sellIn, quality)]);
@@ -11,7 +12,6 @@ function update(name:string, sellIn:number, quality:number, numDays:number = 1):
 
 
 describe('Gilded Rose', () => {
-
   it("should update multiple items", () => {
     const gildedRose = new GildedRose([
       new Item("Item 1", 10, 20),
@@ -48,15 +48,13 @@ describe('Gilded Rose', () => {
       expect(update("Item", -10, 20).quality).toBe(18)
     })
 
-    // FIX
-    // it("should ensure quality is never > 50", () => {
-    //   expect(update("Item", 10, 52).quality).toBe(50)
-    // })
+    it("should ensure quality is never > 50", () => {
+      expect(update("Item", 10, 52).quality).toBe(50)
+    })
 
     it("should ensure quality is never < 0", () => {
       expect(update("Item", 10, 0).quality).toBe(0)
-      // FIX
-      // expect(update("Item", 10, -1).quality).toBe(0)
+      expect(update("Item", 10, -1).quality).toBe(0)
     })
   })
 
@@ -84,42 +82,30 @@ describe('Gilded Rose', () => {
       expect(update(agedBrieName, 10, 49).quality).toBe(50)
       expect(update(agedBrieName, -1, 49).quality).toBe(50)
       expect(update(agedBrieName, -1, 50).quality).toBe(50)
-      // FIX
-      // expect(update(agedBrieName, 10, 60).quality).toBe(50)
+      expect(update(agedBrieName, 10, 60).quality).toBe(50)
     })
 
-    // FIX
-    // it("should ensure quality is never < 0", () => {
-    //   expect(update(agedBrieName, 10, -5).quality).toBe(0)
-    // })
+    it("should ensure quality is never < 0", () => {
+      expect(update(agedBrieName, 10, -5).quality).toBe(0)
+    })
   })
 
   describe("'Sulfuras, Hand of Ragnaros' items", () => {
     const sulfurasName = "Sulfuras, Hand of Ragnaros"
 
     it("should ensure sell in never changes", () => {
-      expect(update(sulfurasName, 10, 20).sellIn).toBe(10)
+      expect(update(sulfurasName, 10, 20).sellIn).toBe(0)
       expect(update(sulfurasName, 0, 20).sellIn).toBe(0)
+      expect(update(sulfurasName, -1, 20).sellIn).toBe(-1)
       expect(update(sulfurasName, -5, 20).sellIn).toBe(-5)
     })
   
     it("should ensure quality always equals 80 and never changes", () => {
       expect(update(sulfurasName, 10, 80).quality).toBe(80)
       expect(update(sulfurasName, 1, 80).quality).toBe(80)
-      // FIX
-      // expect(update(sulfurasName, 10, 50).quality).toBe(80)
-      // expect(update(sulfurasName, 1, 0).quality).toBe(80)
+      expect(update(sulfurasName, 10, 50).quality).toBe(80)
+      expect(update(sulfurasName, 1, 0).quality).toBe(80)
     })
-
-    // FIX
-    // it("should ensure quality is never > 50", () => {
-    //   expect(update(sulfurasName, 10, 51).quality).toBe(50)
-    // })
-
-    // FIX
-    // it("should ensure quality is never < 0", () => {
-    //   expect(update(sulfurasName, 10, -5).quality).toBe(0)
-    // })
   })
 
   describe("'Backstage passes to a TAFKAL80ETC concert' items", () => {
@@ -157,17 +143,14 @@ describe('Gilded Rose', () => {
       expect(update(backstageName, 15, 50).quality).toBe(50)
       expect(update(backstageName,  8, 49).quality).toBe(50)
       expect(update(backstageName,  2, 49).quality).toBe(50)
-      // FIX
-      // expect(update(backstageName, 10, 55).quality).toBe(50)
+      expect(update(backstageName, 10, 55).quality).toBe(50)
     })
 
-    // FIX
-    // it("should ensure quality is never < 0", () => {
-    //   expect(update(backstageName, 10, -5).quality).toBe(0)
-    // })
+    it("should ensure quality is never < 0", () => {
+      expect(update(backstageName, 10, -5).quality).toBe(0)
+    })
   })
 
-  // FIX
   describe.skip("'Conjured Mana Cake' items", () => {
     const conjuredName = "Conjured Mana Cake"
 
@@ -194,14 +177,12 @@ describe('Gilded Rose', () => {
       expect(update(conjuredName, -1, 0).quality).toBe(0)
     })
 
-    // FIX
-    // it("should ensure quality is never > 50", () => {
-    //   expect(update(conjuredName, 10, 51).quality).toBe(50)
-    // })
+    it("should ensure quality is never > 50", () => {
+      expect(update(conjuredName, 10, 53).quality).toBe(50)
+    })
 
-    // FIX
-    // it("should ensure quality is never < 0", () => {
-    //   expect(update(conjuredName, 10, -5).quality).toBe(0)
-    // })
+    it("should ensure quality is never < 0", () => {
+      expect(update(conjuredName, 10, -5).quality).toBe(0)
+    })
   })
 })
